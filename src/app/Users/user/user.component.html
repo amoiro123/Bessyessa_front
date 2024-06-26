@@ -1,0 +1,134 @@
+ <p-table [value]="users" [tableStyle]="{'min-width': '60rem'}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="ID" style="width:40%">
+                ID <p-sortIcon field="ID" />
+            </th>
+            <th pSortableColumn="username" style="width:20%">
+                Name <p-sortIcon field="username" />
+            </th>
+            <th pSortableColumn="email" style="width:25%">
+                E-mail <p-sortIcon field="email" />
+            </th>
+            <th style="width:20%">
+                Actions
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                <p-button label="Delete" icon="pi pi-trash" severity="danger" (click)="deleteUser(user.id)" />
+                <p-button label="Edit" icon="pi pi-pencil" severity="info" (click)="showDialog(user)" />
+            </td>
+        </tr>
+    </ng-template>
+  </p-table>
+  
+  <div class="card flex justify-content-center">
+    <p-dialog 
+        header="Header" 
+        [(visible)]="visible" 
+        [modal]="true" 
+        [style]="{ width: '25rem' }">
+        <ng-template pTemplate="header">
+            <div class="inline-flex align-items-center justify-content-center gap-2">
+                <p-avatar 
+                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                    shape="circle" />
+                <span class="font-bold white-space-nowrap">
+                    {{ selectedUser?.username }}
+                </span>
+            </div>
+        </ng-template>
+        <span class="p-text-secondary block mb-5">Update your information.</span>
+        <div class="flex align-items-center gap-3 mb-3" *ngIf="selectedUser">
+            <label for="username" class="font-semibold w-6rem">
+                Nom d'utilisateur
+            </label>
+            <input [(ngModel)]="selectedUser.username" pInputText id="username" class="flex-auto" autocomplete="off"  />
+        </div>
+
+        <div class="flex align-items-center gap-3 mb-3" *ngIf="selectedUser">
+            <label for="password" class="font-semibold w-6rem">
+                Mot de passe
+            </label>
+            <input [(ngModel)]="selectedUser.password" pInputText id="password" class="flex-auto" autocomplete="off"  />
+        </div>
+        
+        <div class="flex align-items-center gap-3 mb-3" *ngIf="selectedDetailsUser">
+            <label for="firstName" class="font-semibold w-6rem">
+                Nom 
+            </label>
+            <input [(ngModel)]="selectedDetailsUser.firstName" pInputText id="firstName" class="flex-auto" autocomplete="off"  />
+        </div>
+
+        <div class="flex align-items-center gap-3 mb-3" *ngIf="selectedDetailsUser">
+            <label for="lastName" class="font-semibold w-6rem">
+                Prénom 
+            </label>
+            <input [(ngModel)]="selectedDetailsUser.lastName" pInputText id="lastName" class="flex-auto" autocomplete="off"  />
+        </div>
+
+        <div class="flex align-items-center gap-3 mb-3" *ngIf="selectedDetailsUser">
+            <label for="phoneNumber" class="font-semibold w-6rem">
+                Téléphone 
+            </label>
+            <input [(ngModel)]="selectedDetailsUser.phoneNumber" pInputText id="phoneNumber" class="flex-auto" autocomplete="off"  />
+        </div>
+
+        <div class="flex align-items-center gap-3 mb-3" *ngIf="selectedDetailsUser">
+            <label for="country" class="font-semibold w-6rem">
+                Ville 
+            </label>
+            <input [(ngModel)]="selectedDetailsUser.country" pInputText id="country" class="flex-auto" autocomplete="off"  />
+        </div>
+
+        <div class="flex align-items-center gap-3 mb-3" *ngIf="selectedDetailsUser">
+            <label for="city" class="font-semibold w-6rem">
+                Cité 
+            </label>
+            <input [(ngModel)]="selectedDetailsUser.city" pInputText id="city" class="flex-auto" autocomplete="off"  />
+        </div>
+
+        <div class="flex align-items-center gap-3 mb-3" *ngIf="selectedDetailsUser">
+            <label for="address" class="font-semibold w-6rem">
+                addresse 
+            </label>
+            <input [(ngModel)]="selectedDetailsUser.address" pInputText id="address" class="flex-auto" autocomplete="off"  />
+        </div>
+
+        <div class="flex align-items-center gap-3 mb-3" *ngIf="selectedDetailsUser">
+            <label for="postalCode" class="font-semibold w-6rem">
+                Code postal
+            </label>
+            <input [(ngModel)]="selectedDetailsUser.postalCode" pInputText id="postalCode" class="flex-auto" autocomplete="off"  />
+        </div>
+        
+        <div class="flex align-items-center gap-3 mb-3" *ngIf="selectedDetailsUser">
+            <label for="aboutMe" class="font-semibold w-6rem">
+                Description
+            </label>
+            <input [(ngModel)]="selectedDetailsUser.aboutMe" pInputText id="aboutMe" class="flex-auto" autocomplete="off"  />
+        </div>
+        
+
+        <ng-template pTemplate="footer">
+            <p-button 
+                label="Cancel" 
+                [text]="true" 
+                severity="secondary" 
+                (click)="visible = false" 
+            />
+            <p-button 
+                label="Save" 
+                [outlined]="true" 
+                severity="secondary" 
+                (click)="updateUser()"  
+            />
+        </ng-template>
+    </p-dialog>
+  </div>
