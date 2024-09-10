@@ -1,24 +1,29 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './Authentication/login/login.component';
-import { RegisterComponent } from './Authentication/register/register.component';
-import { ProtectedComponent } from './Authentication/protected/protected.component';
-import { UserComponent } from './Users/user/user.component';
-import { EditUserComponent } from './Users/edit-user/edit-user.component';
-import { PageComponent } from './page/page.component';
+import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './modules/auth/services/auth.guard';
 
-
-const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'protected', component: ProtectedComponent },
-  { path: 'user', component: UserComponent },
-  { path: 'edit-user/:id', component: EditUserComponent },
-  { path: 'page', component: PageComponent },
+export const routes: Routes = [
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('./modules/auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path: 'error',
+    loadChildren: () =>
+      import('./modules/errors/errors.module').then((m) => m.ErrorsModule),
+  },
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./_metronic/layout/layout.module').then((m) => m.LayoutModule),
+  },
+  { path: '**', redirectTo: 'error/404' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

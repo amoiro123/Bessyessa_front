@@ -1,49 +1,58 @@
-import { NgModule, importProvidersFrom } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { ClipboardModule } from 'ngx-clipboard';
+import { TranslateModule } from '@ngx-translate/core';
+import { InlineSVGModule } from 'ng-inline-svg-2';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './Authentication/login/login.component';
-import { RegisterComponent } from './Authentication/register/register.component';
-import { ProtectedComponent } from './Authentication/protected/protected.component';
-import { FormsModule } from '@angular/forms';
-import { AuthInterceptor } from './Authentication/services/auth.interceptor';
-import { AuthService } from './Authentication/services/auth.service';
-import { RouterModule } from '@angular/router';
-import { UserComponent } from './Users/user/user.component';
-import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { MenubarModule } from 'primeng/menubar';
-import { EditUserComponent } from './Users/edit-user/edit-user.component';
-import { DialogModule } from 'primeng/dialog';
-import { AvatarModule } from 'primeng/avatar';
-import { AvatarGroupModule } from 'primeng/avatargroup';
-@NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    ProtectedComponent,
-    UserComponent,
-    EditUserComponent
+import { AuthService } from './modules/auth/services/auth.service';
+import { environment } from 'src/environments/environment';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+// #fake-start#
+import { FakeAPIService } from './_fake/fake-api.service';
+import { AuthInterceptor } from './interceptors/http-interceptor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// #fake-end#
 
-  ],
+function appInitializer(authService: AuthService) {
+  return () => {
+    return new Promise((resolve) => {
+      //@ts-ignore
+      authService.getUserByToken().subscribe().add(resolve);
+    });
+  };
+}
+
+@NgModule({
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
     BrowserAnimationsModule,
-    TableModule,
-    ButtonModule,
-    MenubarModule,
-    DialogModule,
-    AvatarModule,
-    AvatarGroupModule
+    TranslateModule.forRoot(),
+    HttpClientModule,
+    ClipboardModule,
+    FormsModule,
+    ReactiveFormsModule,
+    // #fake-start#
+    environment.isMockEnabled
+      ? HttpClientInMemoryWebApiModule.forRoot(FakeAPIService, {
+        passThruUnknownUrl: true,
+        dataEncapsulation: false,
+      })
+      : [],
+    // #fake-end#
+    AppRoutingModule,
+    InlineSVGModule.forRoot(),
+    NgbModule,
+    SweetAlert2Module.forRoot(),
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    AuthService],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
