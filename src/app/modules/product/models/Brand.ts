@@ -1,4 +1,3 @@
-import { ProductType } from "../../product/enums/ProductType";
 import { ProductModel } from "./ProductModel";
 
 export interface Brand {

@@ -8,12 +8,10 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ProductModelService {
-    private apiUrl = `${environment.apiUrl}/product/models`;
-  //private baseUrl = '/v1/product/models';  // Base URL for the product model API
+  private apiUrl = `${environment.apiUrl}/product/models`;
 
   constructor(private http: HttpClient) { }
 
- 
   getAllProductModels(): Observable<ProductModel[]> {
     return this.http.get<ProductModel[]>(this.apiUrl);
   }

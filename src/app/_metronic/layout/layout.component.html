@@ -26,20 +26,20 @@
       <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
         <!--begin::Content wrapper-->
         <div class="d-flex flex-column flex-column-fluid">
-          <ng-container *ngIf="appToolbarDisplay">
+          <!-- <ng-container *ngIf="appToolbarDisplay">
             <app-toolbar class="app-toolbar" [ngClass]="appToolbarCSSClass" id="kt_app_toolbar"
               [appToolbarLayout]="appToolbarLayout"></app-toolbar>
-          </ng-container>
+          </ng-container> -->
           <app-content id=" kt_app_content" class="app-content" [ngClass]="contentCSSClasses"
             [contentContainerCSSClass]="contentContainerCSSClass" [appContentContiner]="appContentContiner"
             [appContentContainerClass]="appContentContainerClass">
           </app-content>
         </div>
         <!--end::Content wrapper-->
-        <ng-container *ngIf="appFooterDisplay">
+        <!-- <ng-container *ngIf="appFooterDisplay">
           <app-footer class="app-footer" [ngClass]="appFooterCSSClass" id="kt_app_footer"
             [appFooterContainerCSSClass]="appFooterContainerCSSClass"></app-footer>
-        </ng-container>
+        </ng-container> -->
       </div>
       <!--end:::Main-->
     </div>
@@ -58,10 +58,6 @@
 <app-activity-drawer></app-activity-drawer>
 <app-messenger-drawer></app-messenger-drawer>
 <!-- end:: Drawers -->
-
-<!-- end:: Engage -->
-<app-engages></app-engages>
-<!-- end:: Engage -->
 
 <!-- begin:: Modals -->
 <app-main-modal></app-main-modal>

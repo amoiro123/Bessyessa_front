@@ -47,6 +47,11 @@ const Routing: Routes = [
     loadChildren: () => import('./permission/permission.module').then((m) => m.PermissionModule),
   },
   {
+    path: 'product',
+    loadChildren: () =>
+      import('../modules/product/product.module').then((m) => m.ProductModule),
+  },
+  {
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full',
