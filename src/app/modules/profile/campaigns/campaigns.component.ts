@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BrandService } from '../Service-product/brand.service';
+import { BrandService } from '../../product/services/brand.service';
 import { Brand } from '../models/Brand';
 
 /*@Component({
