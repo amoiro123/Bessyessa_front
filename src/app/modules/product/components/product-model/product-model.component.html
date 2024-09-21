@@ -1,1 +1,29 @@
-<p>product-model works!</p>
+<div id="product-header" class="header d-flex align-items-center justify-content-between">
+    <h1>Products</h1>
+    <button type="button" class="btn btn-md btn-primary me-3" (click)="getList()">
+        New
+    </button>
+</div>
+
+<div id="product-list" class="product-list">
+    <div class="table-responsive">
+        <table class="table table-hover table-rounded table-striped border gy-7 gs-7 mt-6 me-4">
+            <thead>
+                <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
+                    <th>Name</th>
+                    <th>Brand</th>
+                    <th>Type</th>
+                    <th>Available</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of list">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.brandName }}</td>
+                    <td>{{ item.type }}</td>
+                    <td>{{ item.availableCount +  "/" + item.totalCount }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -26,10 +26,10 @@ export class ProductModelComponent implements OnInit {*/
 
   // Fetch all product models
   getAllProductModels(): void {
-    this.productModelService.getAllProductModels().subscribe(
-      (models) => this.productModels = models,
-      (error) => console.error('Failed to fetch product models', error)
-    );
+    // this.productModelService.getAllProductModels().subscribe(
+    //   (models) => this.productModels = models,
+    //   (error) => console.error('Failed to fetch product models', error)
+    // );
   }
 
   // Select a product model for editing

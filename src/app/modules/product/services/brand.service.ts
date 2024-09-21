@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class BrandService {
 
   //private baseUrl = '/v1/product/brands';
-  private apiUrl = `${environment.apiUrl}/product/brands`;
+  private apiUrl = `${environment.apiUrl}product/brands`;
 
   constructor(private http: HttpClient) { }
 
