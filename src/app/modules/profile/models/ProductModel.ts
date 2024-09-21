@@ -1,0 +1,14 @@
+import { ProductType } from '../Enum/ProductType';
+import { Brand } from './Brand';
+import { Product } from './Product';
+
+export interface ProductModel {
+  id: string;  
+  name: string;
+  description: string;
+  addedBy: string;  
+  addedOn: Date;
+  products?: Product[];  
+  brand: Brand;  
+  productType: ProductType;  
+}
